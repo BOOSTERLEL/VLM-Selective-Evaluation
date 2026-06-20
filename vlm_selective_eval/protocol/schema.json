@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VLM Selective Eval Output Schema",
+  "type": "object",
+  "required": ["answer", "status", "confidence"],
+  "additionalProperties": false,
+  "properties": {
+    "answer": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ANSWERABLE", "UNANSWERABLE"]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    }
+  }
+}

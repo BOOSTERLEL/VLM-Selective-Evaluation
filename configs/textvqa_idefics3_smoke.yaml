@@ -1,0 +1,28 @@
+# TextVQA smoke test for the first new model.
+output_root: outputs/textvqa_idefics3_smoke
+seed: 7
+evaluation_n_bins: 10
+prompt_system_text: "You are a careful visual question answering assistant. Follow output instructions exactly."
+
+prompt_modes:
+  - structured
+
+datasets:
+  - name: TextVQA
+    mode: textvqa
+    data_root: data
+    source_path: /home/featurize/data/textvqa/textvqa_val_source.json
+    num_pairs: -1
+    image_size: 224
+    evidence_removal: mask
+
+models:
+  - name: Idefics3-8B-Llama3
+    adapter: hf
+    model_name: HuggingFaceM4/Idefics3-8B-Llama3
+    device: cuda
+    vram_gb: 24
+    max_new_tokens: 64
+    generation_kwargs:
+      temperature: 0.2
+      top_p: 1.0

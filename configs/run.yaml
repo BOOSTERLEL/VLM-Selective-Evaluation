@@ -1,0 +1,29 @@
+experiment:
+  name: protocol_pilot_run
+  output_dir: outputs/protocol_pilot_run
+  seed: 7
+
+dataset:
+  mode: synthetic
+  num_pairs: 100
+  image_size: 224
+  evidence_removal: mask
+
+model:
+  adapter: mock
+  model_name: mock-vlm
+  answer_error_rate: 0.1
+  hallucination_rate: 0.1
+  malformed_rate: 0.05
+  free_text_missing_field_rate: 0.1
+  generation_kwargs:
+    temperature: 0.2
+    top_p: 1.0
+
+prompt:
+  mode: structured
+  include_system: true
+  system_text: "You are a careful visual question answering assistant. Follow output instructions exactly."
+
+evaluation:
+  n_calibration_bins: 10
