@@ -11,18 +11,6 @@ The project implements a paired controlled answerability intervention protocol f
 <p align="center">
   <img src="assets/paired_intervention.png" width="85%" alt="Paired controlled answerability intervention">
 </p>
-
-## Paper
-
-**Evaluating Selective Answering in Vision-Language Models via Paired Answerability Interventions**
-Zhengda Peng
-
-* Paper: [`paper/vlm_selective_answering.pdf`](paper/vlm_selective_answering.pdf)
-* Code: this repository
-* License: MIT
-
-> This repository is an inference-only evaluation codebase. It does not train, fine-tune, or release new VLM weights.
-
 ## Overview
 
 Standard VQA metrics measure answer generation on clean answerable examples. They do not directly test what happens when the visual evidence supporting the answer is absent. This repository evaluates that missing behavior through controlled paired interventions.
@@ -50,6 +38,30 @@ The evaluation separates four outcomes:
 | `U-Assert`  | Evidence-removed sample, model still asserts an answer          |
 
 The key failure mode is `U-Assert`: the model answers even though the evidence that supported the original answer has been removed.
+
+## Qualitative examples
+
+The paired protocol makes unsupported assertion and correct abstention visible at the sample level. In each example, the question is kept fixed while the answer-bearing evidence is removed from the image.
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/example_unsupported_assertion.png" width="100%" alt="Unsupported assertion after evidence removal">
+      <br>
+      <b>Unsupported assertion</b><br>
+      The model answers the evidence-removed sample even though the visual evidence supporting the original answer has been masked.
+    </td>
+    <td align="center" width="50%">
+      <img src="assets/example_correct_abstention.png" width="100%" alt="Correct abstention after evidence removal">
+      <br>
+      <b>Correct abstention</b><br>
+      The model abstains after the answer-bearing evidence is removed, which is the desired behavior for the intervened sample.
+    </td>
+  </tr>
+</table>
+
+These examples are illustrative. Aggregate behavior should be interpreted through the four-outcome decomposition, answerable coverage, unsupported assertion rate, unnecessary abstention rate, risk, and parse success.
+
 
 ## Metrics
 
